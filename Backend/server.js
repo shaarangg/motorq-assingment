@@ -1,15 +1,12 @@
+require('dotenv').config();
+require('./models/dbinit');
+
 const express = require('express');
-const dotenv = require('dotenv');
-const moongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const app = express();
-app.use(express.json());
-dotenv.config({ path: './config/.env' });
 
-
-moongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
-const connection = moongoose.connection;
-connection.once('open', () => console.log("MongoDB database connection established successfully"));
-const Building = require('./models/bulding.model');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // Routers
 const studentRouter = require('./routes/student');

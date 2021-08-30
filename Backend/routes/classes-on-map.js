@@ -7,15 +7,13 @@ router.route('/:courseCode').get(async (req, res) => {
     let classMap = [];
     try {
         const classes = await Class.find({ courseCode });
-        await classes.map(async (c) => {
-            const b = await Build.findOne({ name: c.building });
-            const location = { lat: b.location.lat, long: b.location.lat };
-            const temp = { cid: c.cid, courseCode: c.courseCode, faculty: c.faculty, building: c.building, location };
-            // console.log(temp);
-            classMap = [...classMap, temp];
-            console.log(classMap);
-        })
-        console.log(classMap);
+        for(let i=0;i<classes.length;i++) {
+            const builds = await Build.findOne({name: classes[i].building});
+            const location = { lat: builds.location.lat, long: builds.location.lat };
+            const temp = { cid: classes[i].cid, courseCode: classes[i].courseCode, faculty: classes[i].faculty, building: classes[i].building, location };
+            classMap.push(temp);
+        }
+        console.log("sending");
         return res.json(classMap);
     } catch (err) {
         return res.status(400).json('Error: ' + err);
