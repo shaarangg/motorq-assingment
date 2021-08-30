@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
-const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 const moongoose = require('mongoose');
 const app = express();
-app.use(express.json());
-dotenv.config({ path: './config/.env' });
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 
 
 moongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
