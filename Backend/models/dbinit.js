@@ -10,7 +10,6 @@ mongoose.connect(
 	(err) => {
 		if (!err) {
 			console.log("Connected to DB successfully");
-			require("../addData");
 		} else {
 			console.log(`Error in DB connection ${err}`);
 		}

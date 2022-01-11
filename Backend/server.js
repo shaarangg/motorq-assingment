@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Routers
-// const studentRouter = require("./routes/student");
+const studentRouter = require("./routes/student");
 // const classesRouter = require("./routes/classes");
 // const classRouter = require("./routes/class");
 // const classesOnMapRouter = require("./routes/classes-on-map");
@@ -17,11 +17,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
 	res.end("Hello word");
 });
-app.get("/home", (req, res) => {
-	res.end("Home page");
-});
 
-// app.use("/student", studentRouter);
+app.use("/student", studentRouter);
 // app.use("/classes", classesRouter);
 // app.use("/class", classRouter);
 // app.use("/classes-on-map", classesOnMapRouter);
