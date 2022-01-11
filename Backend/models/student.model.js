@@ -1,31 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const studentSchema = new Schema(
-    {
-        sid: {
-            type: String,
-            required: true,
-            unique: true,
-            trim: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        classes: {
-            type: [String],
-            default: []
-        },
-    },
-    {
-        timestamps: true,
-    }
-);
-const model = mongoose.model('student', studentSchema);
+const studentSchema = new Schema({
+	_id: String,
+	name: {
+		type: String,
+		required: true,
+	},
+	classes: [mongoose.ObjectId],
+});
+const model = mongoose.model("Student", studentSchema);
 module.exports = model;
