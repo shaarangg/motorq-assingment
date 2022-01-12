@@ -1,41 +1,48 @@
-const router = require('express').Router();
-const Class = require('../models/class.model');
-const Student = require('../models/student.model');
-
-
+const router = require("express").Router();
+const Class = require("../models/class.model");
+const Student = require("../models/student.model");
+var mongoose = require("mongoose");
 // Adds a class to the student
-router.route('/:sid/:cid').post((req, res) => {
-    const { sid, cid } = req.params;
-    Student.updateOne({ sid }, {
-        $push: { classes: cid }
-    }).then((response) => {
-        console.log(response);
-        res.json("Success")
-    })
-        .catch(err => res.status(400).json('Error: ' + err))
-})
+router.route("/:id").post((req, res) => {
+	const sid = req.params.id;
+	const cid = mongoose.Types.ObjectId(req.body.id);
+	Student.updateOne({ _id: sid }, { $push: { classes: cid } })
+		.then((result) => {
+			console.log(result);
+			res.json("Success");
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 // Deletes a class from the student id
-router.route('/:sid/:cid').delete((req, res) => {
-    const { sid, cid } = req.params;
-    Student.updateOne({ sid }, {
-        $pull: { classes: cid }
-    }).then((response) => {
-        console.log(response);
-        res.json("Success")
-    })
-        .catch(err => res.status(400).json('Error: ' + err))
-})
-
+router.route("/:sid/:cid").delete((req, res) => {
+	const { sid, cid } = req.params;
+	Student.updateOne(
+		{ sid },
+		{
+			$pull: { classes: cid },
+		}
+	)
+		.then((response) => {
+			console.log(response);
+			res.json("Success");
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
+});
 
 // Gets all the classes of sid
-router.route('/:sid').get((req, res) => {
-    const sid = req.params.sid;
-    Student.find({ sid })
-        .then((response) => {
-            console.log(response);
-            res.json('Success');
-        })
-        .catch(err => res.status(400).json('Error: ' + err))
+router.route("/:id").get((req, res) => {
+	const id = req.params.id;
+	Student.findById({ _id: id })
+		.then((result) => {
+			const { classes } = result;
+			Class.find({ _id: { $in: classes } })
+				.then((classResult) => {
+					console.log(classResult);
+				})
+				.catch((err) => res.status(400).json("Error: " + err));
+			res.json("Success");
+		})
+		.catch((err) => res.status(400).json("Error: " + err));
 });
 module.exports = router;

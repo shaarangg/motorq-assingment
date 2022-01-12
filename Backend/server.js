@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 
 // Routers
 const studentRouter = require("./routes/student");
-// const classesRouter = require("./routes/classes");
-// const classRouter = require("./routes/class");
+const classesRouter = require("./routes/classes");
+const classRouter = require("./routes/class");
 // const classesOnMapRouter = require("./routes/classes-on-map");
 
 app.get("/", (req, res) => {
@@ -19,8 +19,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/student", studentRouter);
-// app.use("/classes", classesRouter);
-// app.use("/class", classRouter);
+app.use("/classes", classesRouter);
+app.use("/class", classRouter);
 // app.use("/classes-on-map", classesOnMapRouter);
 
 app.listen(process.env.PORT, () => {
