@@ -17,12 +17,7 @@ router.route("/:id").post((req, res) => {
 // Deletes a class from the student id
 router.route("/:sid/:cid").delete((req, res) => {
 	const { sid, cid } = req.params;
-	Student.updateOne(
-		{ sid },
-		{
-			$pull: { classes: cid },
-		}
-	)
+	Student.updateOne({ _id: sid }, { $pull: { classes: cid } })
 		.then((response) => {
 			console.log(response);
 			res.json("Success");
@@ -38,10 +33,10 @@ router.route("/:id").get((req, res) => {
 			const { classes } = result;
 			Class.find({ _id: { $in: classes } })
 				.then((classResult) => {
-					console.log(classResult);
+					res.json({ status: "Success", data: classResult });
+					console.log("Success");
 				})
 				.catch((err) => res.status(400).json("Error: " + err));
-			res.json("Success");
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
 });
