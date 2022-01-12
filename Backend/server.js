@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 const studentRouter = require("./routes/student");
 const classesRouter = require("./routes/classes");
 const classRouter = require("./routes/class");
-// const classesOnMapRouter = require("./routes/classes-on-map");
+const classesOnMapRouter = require("./routes/classes-on-map");
 
 app.get("/", (req, res) => {
 	res.end("Hello word");
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 app.use("/student", studentRouter);
 app.use("/classes", classesRouter);
 app.use("/class", classRouter);
-// app.use("/classes-on-map", classesOnMapRouter);
+app.use("/classes-on-map", classesOnMapRouter);
 
 app.listen(process.env.PORT, () => {
 	console.log(`Server is running on port: ${process.env.PORT}`);
