@@ -5,11 +5,16 @@ var mongoose = require("mongoose");
 // Adds a class to the student
 router.route("/:id").post((req, res) => {
 	const sid = req.params.id;
-	const cid = mongoose.Types.ObjectId(req.body.id);
+	const cid = req.body.id;
 	Student.updateOne({ _id: sid }, { $push: { classes: cid } })
 		.then((result) => {
 			console.log(result);
-			res.json("Success");
+			Class.updateOne({ _id: cid }, { $inc: { studentsRegistered: 1 } })
+				.then((classResult) => {
+					console.log(classResult);
+					res.json({ status: "Success" });
+				})
+				.catch((err) => res.status(400).json("Error: " + err));
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
 });

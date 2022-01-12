@@ -19,6 +19,10 @@ const classSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	studentsRegistered: {
+		type: Number,
+		default: 0,
+	},
 });
 const model = mongoose.model("class", classSchema);
 module.exports = model;
