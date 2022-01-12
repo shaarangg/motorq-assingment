@@ -25,7 +25,7 @@ router.route("/:sid/:cid").delete((req, res) => {
 	Student.updateOne({ _id: sid }, { $pull: { classes: cid } })
 		.then((response) => {
 			console.log(response);
-			res.json("Success");
+			res.json({ status: "Success" });
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
 });
