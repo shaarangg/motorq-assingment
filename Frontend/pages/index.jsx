@@ -3,7 +3,7 @@ import Link from "next/link";
 function index() {
 	return (
 		<main>
-			<div className={styles.title}>Student Portal</div>
+			<div className={styles.title}>Welcome to the Student Portal</div>
 			<div className={styles.btn}>
 				<button>
 					<Link href="/login">Login</Link>

@@ -1,6 +1,8 @@
 import { useRef } from "react";
+import { GlobalContext } from "../context";
 import axios from "axios";
-function Login() {
+function login() {
+	const { user } = GlobalContext();
 	const regnoContainer = useRef(null);
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -19,4 +21,4 @@ function Login() {
 		</form>
 	);
 }
-export default Login;
+export default login;
