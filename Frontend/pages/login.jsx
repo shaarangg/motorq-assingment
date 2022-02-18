@@ -5,14 +5,18 @@ function login() {
 	const { user, setUser } = GlobalContext();
 	const regnoContainer = useRef(null);
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const res = await axios.get(`http://localhost:3002/student/${regnoContainer.current.value}`);
-		const { success, message, data } = res.data;
-		if (success) {
-			setUser(data);
-			console.log(message);
-		} else {
-			console.log(message);
+		try {
+			e.preventDefault();
+			const res = await axios.get(`http://localhost:3002/student/${regnoContainer.current.value}`);
+			const { success, message, data } = res.data;
+			if (success) {
+				setUser(data);
+				console.log(message);
+			} else {
+				alert(message);
+			}
+		} catch (e) {
+			console.log(e);
 		}
 	};
 	return (
