@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { GlobalContext } from "../context";
+import Router from "next/router";
 import axios from "axios";
 function login() {
 	const { user, setUser } = GlobalContext();
@@ -12,6 +13,7 @@ function login() {
 			if (success) {
 				setUser(data);
 				console.log(message);
+				Router.push("/home");
 			} else {
 				alert(message);
 			}

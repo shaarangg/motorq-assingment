@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRef } from "react";
+import Router from "next/router";
 function register() {
 	const idRef = useRef(null);
 	const nameRef = useRef(null);
@@ -14,6 +15,7 @@ function register() {
 			const { success, message } = res.data;
 			if (success) {
 				alert(message);
+				Router.push("/home");
 			} else {
 				alert(message);
 			}
