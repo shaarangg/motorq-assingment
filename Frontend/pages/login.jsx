@@ -2,16 +2,18 @@ import { useRef } from "react";
 import { GlobalContext } from "../context";
 import axios from "axios";
 function login() {
-	const { user } = GlobalContext();
+	const { user, setUser } = GlobalContext();
 	const regnoContainer = useRef(null);
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		axios
-			.get(`http://localhost:3002/student/${regnoContainer.current.value}`)
-			.then((res) => {
-				console.log(res.data.data);
-			})
-			.catch((err) => console.log(err));
+		const res = await axios.get(`http://localhost:3002/student/${regnoContainer.current.value}`);
+		const { success, message, data } = res.data;
+		if (success) {
+			setUser(data);
+			console.log(message);
+		} else {
+			console.log(message);
+		}
 	};
 	return (
 		<form>

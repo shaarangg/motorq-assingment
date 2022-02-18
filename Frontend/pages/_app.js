@@ -3,7 +3,7 @@ import { AppProvider } from "../context";
 function MyApp({ Component, pageProps }) {
 	return (
 		<AppProvider>
-			<Component {...pageProps} />;
+			<Component {...pageProps} />
 		</AppProvider>
 	);
 }
