@@ -22,14 +22,26 @@ router.route("/:id").get(async (req, res) => {
 });
 
 // SIGNUP
-router.route("/").post((req, res) => {
-	const { id, name } = req.body;
-	Student.create({ _id: id, name: name })
-		.then((response) => {
-			res.json({ status: "Success" });
-			console.log(response);
-		})
-		.catch((err) => res.status(400).json("Error: " + err));
+router.route("/").post(async (req, res) => {
+	try {
+		const { id, name } = req.body;
+		if (!id || !name) {
+			return res.json({ success: false, message: "Required fields cannot be empty" });
+		}
+		const student = await Student.create({ _id: id, name: name });
+		res.json({
+			success: true,
+			message: "Data posted successfully",
+			data: {
+				id: student._id,
+				name: student.name,
+			},
+		});
+	} catch (e) {
+		if (e.code === 11000) {
+			return res.json({ success: false, message: "Reg No. already exist" });
+		}
+		res.json({ success: false, message: e.name });
+	}
 });
-
 module.exports = router;
