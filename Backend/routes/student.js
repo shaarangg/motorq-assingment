@@ -14,7 +14,7 @@ router.route("/:id").get(async (req, res) => {
 		return res.json({
 			success: true,
 			message: "Student found successfully",
-			data: { regno: student._id, name: student.name, classes: student.classes },
+			data: { id: student._id, name: student.name, classes: student.classes },
 		});
 	} catch (e) {
 		return res.json({ success: "false", message: e });

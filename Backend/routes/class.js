@@ -31,18 +31,16 @@ router.route("/:sid/:cid").delete((req, res) => {
 });
 
 // Gets all the classes of sid
-router.route("/:id").get((req, res) => {
-	const id = req.params.id;
-	Student.findById({ _id: id })
-		.then((result) => {
-			const { classes } = result;
-			Class.find({ _id: { $in: classes } })
-				.then((classResult) => {
-					res.json({ status: "Success", data: classResult });
-					console.log("Success");
-				})
-				.catch((err) => res.status(400).json("Error: " + err));
-		})
-		.catch((err) => res.status(400).json("Error: " + err));
+router.route("/:id").get(async (req, res) => {
+	try {
+		const studentId = req.params.id;
+		if (!studentId) return res.json({ success: false, message: "Required fields cannot be empty" });
+		const student = await Student.findById({ _id: studentId });
+		const { classes } = student;
+		const classArray = await Class.find({ _id: { $in: classes } });
+		res.json({ success: true, message: "Class found successfully", data: classArray });
+	} catch (e) {
+		res.json({ success: false, message: e });
+	}
 });
 module.exports = router;
