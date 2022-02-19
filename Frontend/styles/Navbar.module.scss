@@ -1,0 +1,19 @@
+.nav {
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	z-index: 100;
+	width: 100%;
+	background-color: black;
+	ul {
+		width: 900px;
+		margin: auto;
+		display: flex;
+		justify-content: space-around;
+		padding: 1rem 1rem;
+		color: white;
+		li {
+			display: block;
+		}
+	}
+}
