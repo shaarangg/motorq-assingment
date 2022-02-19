@@ -1,9 +1,7 @@
 import { useRef } from "react";
-import { GlobalContext } from "../context";
 import Router from "next/router";
 import axios from "axios";
 function login() {
-	const { user, setUser } = GlobalContext();
 	const regnoContainer = useRef(null);
 	const handleSubmit = async (e) => {
 		try {
@@ -11,8 +9,8 @@ function login() {
 			const res = await axios.get(`http://localhost:3002/student/${regnoContainer.current.value}`);
 			const { success, message, data } = res.data;
 			if (success) {
-				setUser(data);
-				console.log(message);
+				alert(message);
+				localStorage.setItem("student", data);
 				Router.push("/home");
 			} else {
 				alert(message);
