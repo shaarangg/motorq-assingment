@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { GlobalContext } from "../context";
 import Class from "../components/Class";
+import styles from "../styles/Timetable.module.scss";
 function timetable() {
 	const { classes, setClasses } = GlobalContext();
 
@@ -34,10 +35,12 @@ function timetable() {
 	} else {
 		return (
 			<Layout>
-				{classes.map((cls) => {
-					const { _id } = cls;
-					return <Class key={_id} cls={cls} />;
-				})}
+				<div className={styles.classesContainer}>
+					{classes.map((cls) => {
+						const { _id } = cls;
+						return <Class key={_id} cls={cls} />;
+					})}
+				</div>
 			</Layout>
 		);
 	}

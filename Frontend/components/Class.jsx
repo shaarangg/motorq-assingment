@@ -10,6 +10,7 @@ function Class({ cls }) {
 				<p>{faculty}</p>
 				<p>{building}</p>
 			</div>
+			<button>Delete Class</button>
 		</div>
 	);
 }

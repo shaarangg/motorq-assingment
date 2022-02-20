@@ -2,6 +2,8 @@
 	background-color: white;
 	width: 200px;
 	padding: 1rem;
+	display: flex;
+	flex-direction: column;
 	h2 {
 		margin-bottom: 0.5rem;
 	}
@@ -14,5 +16,16 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		margin-bottom: 0.5rem;
+	}
+	button {
+		background-color: transparent;
+		color: #e66b6b;
+		border: none;
+		cursor: pointer;
+		width: 100px;
+		border-radius: 2px;
+		padding: 0.25rem 0.5rem;
+		align-self: center;
 	}
 }
