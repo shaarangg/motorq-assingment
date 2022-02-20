@@ -3,10 +3,11 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
 	const [classes, setClasses] = useState([]);
 	// useEffect(() => {
+	// 	console.log("UseEffect");
 	// 	console.log(classes);
 	// 	// console.log(student);
-	// }, [classes, student]);
-	return <AppContext.Provider value={{ setClasses }}>{children}</AppContext.Provider>;
+	// }, [classes]);
+	return <AppContext.Provider value={{ classes, setClasses }}>{children}</AppContext.Provider>;
 };
 const GlobalContext = () => {
 	return useContext(AppContext);

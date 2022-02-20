@@ -10,7 +10,7 @@ function login() {
 			const { success, message, data } = res.data;
 			if (success) {
 				alert(message);
-				localStorage.setItem("student", data);
+				localStorage.setItem("student", JSON.stringify(data));
 				Router.push("/home");
 			} else {
 				alert(message);

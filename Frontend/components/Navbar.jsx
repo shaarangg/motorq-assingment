@@ -1,6 +1,9 @@
 import Link from "next/link";
 import styles from "../styles/Navbar.module.scss";
 function Navbar() {
+	const handleLogout = () => {
+		localStorage.clear();
+	};
 	return (
 		<nav className={styles.nav}>
 			<ul>
@@ -25,7 +28,7 @@ function Navbar() {
 					</Link>
 				</li>
 				<li>
-					<Link href="/">
+					<Link href="/" onClick={handleLogout}>
 						<a>Logout</a>
 					</Link>
 				</li>

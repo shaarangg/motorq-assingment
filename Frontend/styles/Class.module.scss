@@ -1,0 +1,18 @@
+.container {
+	background-color: white;
+	width: 200px;
+	padding: 1rem;
+	h2 {
+		margin-bottom: 0.5rem;
+	}
+	p {
+		margin-bottom: 0.5rem;
+	}
+	border-radius: 5px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}

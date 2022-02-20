@@ -2,33 +2,44 @@ import Layout from "../components/Layout";
 import axios from "axios";
 import { useEffect } from "react";
 import { GlobalContext } from "../context";
-function timetable({ data }) {
+import Class from "../components/Class";
+function timetable() {
 	const { classes, setClasses } = GlobalContext();
+
+	const fetchClasses = async (id, signal) => {
+		try {
+			const res = await axios.get(`http://localhost:3002/class/${id}`, { signal: signal });
+			setClasses(res.data.data);
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	useEffect(() => {
 		const AbortCont = new AbortController();
-		const student = localStorage.getItem("student");
+		const student = JSON.parse(localStorage.getItem("student"));
 		const { id } = student;
-		axios
-			.get(`http://localhost:3002/class/${id}`, { signal: AbortCont.signal })
-			.then((res) => {
-				setClasses(res.data.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-
+		fetchClasses(id, AbortCont.signal);
 		return () => {
 			AbortCont.abort();
 		};
 	}, []);
 
-	return (
-		<Layout>
-            <div>
-                {if(classes.length!==0)}
-            </div>
-		</Layout>
-	);
+	if (classes.length === 0) {
+		return (
+			<Layout>
+				<div>No classes</div>
+			</Layout>
+		);
+	} else {
+		return (
+			<Layout>
+				{classes.map((cls) => {
+					const { _id } = cls;
+					return <Class key={_id} cls={cls} />;
+				})}
+			</Layout>
+		);
+	}
 }
 export default timetable;

@@ -17,4 +17,9 @@ a {
 }
 main {
 	height: calc(100% - 53.6px);
+	background-color: #f5f5f5;
+}
+:root {
+	--light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	--dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
