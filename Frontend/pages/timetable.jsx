@@ -15,7 +15,6 @@ function timetable() {
 			console.log(e);
 		}
 	};
-
 	useEffect(() => {
 		const AbortCont = new AbortController();
 		const student = JSON.parse(localStorage.getItem("student"));
@@ -37,8 +36,8 @@ function timetable() {
 			<Layout>
 				<div className={styles.classesContainer}>
 					{classes.map((cls) => {
-						const { _id } = cls;
-						return <Class key={_id} cls={cls} />;
+						cls = { ...cls, btn: "delete" };
+						return <Class key={cls._id} cls={cls} />;
 					})}
 				</div>
 			</Layout>

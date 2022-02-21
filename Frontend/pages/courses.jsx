@@ -3,11 +3,10 @@ import styles from "../styles/Courses.module.scss";
 import Class from "../components/Class";
 import Layout from "../components/Layout";
 function courses({ data }) {
-	console.log(data);
 	if (!data.success) {
 		return (
 			<Layout>
-				<div>"Could not fetch classes"</div>
+				<div>Could not fetch classes</div>
 			</Layout>
 		);
 	} else {
@@ -16,6 +15,7 @@ function courses({ data }) {
 			<Layout>
 				<div className={styles.classesContainer}>
 					{classes.map((cls) => {
+						cls = { ...cls, btn: "add" };
 						return <Class key={cls._id} cls={cls} />;
 					})}
 				</div>
@@ -25,7 +25,6 @@ function courses({ data }) {
 }
 export async function getStaticProps() {
 	const res = await axios.get("http://localhost:3000/api/classes");
-	console.log(res.data);
 	const data = res.data;
 	return {
 		props: { data },
