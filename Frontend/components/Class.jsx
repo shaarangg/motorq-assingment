@@ -1,6 +1,10 @@
 import styles from "../styles/Class.module.scss";
 import axios from "axios";
+import { GlobalContext } from "../context";
+import { useEffect } from "react";
 function Class({ cls }) {
+	const { classes, setClasses } = GlobalContext();
+
 	const addClass = async (_id, time) => {
 		const student = JSON.parse(localStorage.getItem("student"));
 		const res = await axios.post(`http://localhost:3002/class/${student.id}`, {
@@ -13,11 +17,12 @@ function Class({ cls }) {
 	const deleteClass = async (_id) => {
 		const student = JSON.parse(localStorage.getItem("student"));
 		const res = await axios.delete(`http://localhost:3002/class/${student.id}/${_id}`);
-		console.log(res);
+		let tempClasses = classes;
+		tempClasses = tempClasses.filter((cls) => cls._id !== _id);
+		setClasses(tempClasses);
 	};
 
 	const { _id, building, courseCode, faculty, time, btn } = cls;
-
 	return (
 		<div className={styles.container}>
 			<h2>{courseCode}</h2>
