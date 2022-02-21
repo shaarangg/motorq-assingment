@@ -42,13 +42,15 @@ router.route("/:id").post(async (req, res) => {
 router.route("/:sid/:cid").delete(async (req, res) => {
 	try {
 		const { sid, cid } = req.params;
-		if (!studentId || !classId) {
+		if (!sid || !cid) {
 			res.json({ success: false, message: "Required fields cannot be empty" });
 		}
-		const student = await Student.updateOne({ _id: sid }, { $pull: { classes: cid } });
-		res.json({ success: true, message: "Class deleted successfully", data: student });
+		await Student.updateOne({ _id: sid }, { $pull: { classes: cid } });
+		await Class.updateOne({ _id: cid }, { $inc: { studentsRegistered: -1 } });
+		res.json({ success: true, message: "Class deleted successfully" });
 	} catch (e) {
 		res.json({ success: false, message: e });
+		console.error(e);
 	}
 });
 
