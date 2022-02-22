@@ -1,28 +1,13 @@
 import Layout from "../components/Layout";
-import axios from "axios";
-import { useEffect } from "react";
-import { GlobalContext } from "../context";
+import { useEffect, useState } from "react";
 import Class from "../components/Class";
 import styles from "../styles/Timetable.module.scss";
 function timetable() {
-	const { classes, setClasses } = GlobalContext();
+	const [classes, setClasses] = useState([]);
 
-	const fetchClasses = async (id, signal) => {
-		try {
-			const res = await axios.get(`http://localhost:3002/class/${id}`, { signal: signal });
-			setClasses(res.data.data);
-		} catch (e) {
-			console.log(e);
-		}
-	};
 	useEffect(() => {
-		const AbortCont = new AbortController();
-		const student = JSON.parse(localStorage.getItem("student"));
-		const { id } = student;
-		fetchClasses(id, AbortCont.signal);
-		return () => {
-			AbortCont.abort();
-		};
+		const cls = JSON.parse(localStorage.getItem("classes"));
+		setClasses(cls);
 	}, []);
 
 	if (classes.length === 0) {
@@ -37,7 +22,7 @@ function timetable() {
 				<div className={styles.classesContainer}>
 					{classes.map((cls) => {
 						cls = { ...cls, btn: "delete" };
-						return <Class key={cls._id} cls={cls} />;
+						return <Class key={cls._id} cls={cls} func={setClasses} />;
 					})}
 				</div>
 			</Layout>
