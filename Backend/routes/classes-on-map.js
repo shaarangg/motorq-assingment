@@ -20,7 +20,6 @@ router.route("/:courseCode").get(async (req, res) => {
 			},
 			{ $project: { fromBuilding: 0, name: 0 } },
 		]);
-		console.log("Success on GET request on route classes-on-map");
 		res.json({ success: true, message: "Classes fetched successfully", data: classes });
 	} catch (e) {
 		res.json({ success: false, message: e });
