@@ -8,7 +8,6 @@ function home() {
 		try {
 			const res = await axios.get(`http://localhost:3002/class/${id}`, { signal: signal });
 			localStorage.setItem("classes", JSON.stringify(res.data.data));
-			const cls = JSON.parse(localStorage.getItem("classes"));
 		} catch (e) {
 			console.log(e);
 		}

@@ -4,23 +4,32 @@ function Class(props) {
 	const cls = props.cls;
 	const updateClass = props.func;
 	const addClass = async (_id, time) => {
-		const student = JSON.parse(localStorage.getItem("student"));
-		const res = await axios.post(`http://localhost:3002/class/${student.id}`, {
-			id: _id,
-			time: time,
-		});
-		alert(res.data.message);
-		localStorage.setItem("classes", JSON.stringify(res.data.data));
+		try {
+			const student = JSON.parse(localStorage.getItem("student"));
+			const res = await axios.post(`http://localhost:3002/class/${student.id}`, {
+				id: _id,
+				time: time,
+			});
+			alert(res.data.message);
+			const getRes = await axios.get(`http://localhost:3002/class/${student.id}`);
+			localStorage.setItem("classes", JSON.stringify(getRes.data.data));
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const deleteClass = async (_id) => {
-		const student = JSON.parse(localStorage.getItem("student"));
-		const res = await axios.delete(`http://localhost:3002/class/${student.id}/${_id}`);
-		const classes = JSON.parse(localStorage.getItem("classes"));
-		let tempClasses = classes;
-		tempClasses = tempClasses.filter((cls) => cls._id !== _id);
-		localStorage.setItem("classes", JSON.stringify(tempClasses));
-		updateClass(tempClasses);
+		try {
+			const student = JSON.parse(localStorage.getItem("student"));
+			const res = await axios.delete(`http://localhost:3002/class/${student.id}/${_id}`);
+			const classes = JSON.parse(localStorage.getItem("classes"));
+			let tempClasses = classes;
+			tempClasses = tempClasses.filter((cls) => cls._id !== _id);
+			localStorage.setItem("classes", JSON.stringify(tempClasses));
+			updateClass(tempClasses);
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const { _id, building, courseCode, faculty, time, btn } = cls;
