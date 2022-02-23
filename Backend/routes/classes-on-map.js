@@ -1,28 +1,29 @@
 const router = require("express").Router();
 const Class = require("../models/class.model");
-router.route("/:courseCode").get((req, res) => {
-	const courseCode = req.params.courseCode;
-	Class.aggregate([
-		{ $match: { courseCode: courseCode } },
-		{
-			$lookup: {
-				from: "buildings",
-				localField: "building",
-				foreignField: "name",
-				as: "fromBuilding",
+router.route("/:courseCode").get(async (req, res) => {
+	try {
+		const courseCode = req.params.courseCode;
+		const classes = await Class.aggregate([
+			{ $match: { courseCode: courseCode } },
+			{
+				$lookup: {
+					from: "buildings",
+					localField: "building",
+					foreignField: "name",
+					as: "fromBuilding",
+				},
 			},
-		},
-		{
-			$replaceRoot: {
-				newRoot: { $mergeObjects: [{ $arrayElemAt: ["$fromBuilding", 0] }, "$$ROOT"] },
+			{
+				$replaceRoot: {
+					newRoot: { $mergeObjects: [{ $arrayElemAt: ["$fromBuilding", 0] }, "$$ROOT"] },
+				},
 			},
-		},
-		{ $project: { fromBuilding: 0, name: 0 } },
-	])
-		.then((result) => {
-			console.log("Success on GET request on route classes-on-map");
-			res.json({ status: "Success", data: result });
-		})
-		.catch((err) => res.status(400).json("Error: " + err));
+			{ $project: { fromBuilding: 0, name: 0 } },
+		]);
+		console.log("Success on GET request on route classes-on-map");
+		res.json({ success: true, message: "Classes fetched successfully", data: classes });
+	} catch (e) {
+		res.json({ success: false, message: e });
+	}
 });
 module.exports = router;
