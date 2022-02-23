@@ -26,9 +26,24 @@ function home() {
 	return (
 		<Layout>
 			<div className={styles.container}>
-				<Link href="/courses">Courses</Link>
-				<Link href="/map">Map</Link>
-				<Link href="/timetable">Timetable</Link>
+				<Link href="/courses">
+					<div className={styles.links1}>
+						<img src="./home_images/courses.jpg" alt="" />
+						<p>Courses</p>
+					</div>
+				</Link>
+				<Link href="/map">
+					<div className={styles.links2}>
+						<img src="./home_images/map.jpg" alt="" />
+						<p>Map</p>
+					</div>
+				</Link>
+				<Link href="/timetable">
+					<div className={styles.links3}>
+						<img src="./home_images/timetable.jpg" alt="" />
+						<p>Timetable</p>
+					</div>
+				</Link>
 			</div>
 		</Layout>
 	);

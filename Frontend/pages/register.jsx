@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 import Router from "next/router";
-
+import styles from "../styles/Register.module.scss";
 function register() {
 	const idRef = useRef(null);
 	const nameRef = useRef(null);
@@ -28,12 +28,15 @@ function register() {
 	};
 
 	return (
-		<form action="">
-			<input type="text" placeholder="Reg No." ref={idRef} />
-			<input type="text" placeholder="Name" ref={nameRef} />
-			<input type="password" placeholder="Password" />
-			<button onClick={handleSubmit}>Sign Up</button>
-		</form>
+		<div className={styles.container}>
+			<form action="">
+				<h2>Register</h2>
+				<input type="text" placeholder="Reg No." ref={idRef} />
+				<input type="text" placeholder="Name" ref={nameRef} />
+				<input type="password" placeholder="Password" />
+				<button onClick={handleSubmit}>Sign Up</button>
+			</form>
+		</div>
 	);
 }
 export default register;

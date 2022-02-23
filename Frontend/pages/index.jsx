@@ -2,8 +2,8 @@ import styles from "../styles/Index.module.scss";
 import Link from "next/link";
 function index() {
 	return (
-		<main>
-			<div className={styles.title}>Welcome to the Student Portal</div>
+		<div className={styles.container}>
+			<h2 className={styles.title}>Welcome to the Student Portal</h2>
 			<div className={styles.btn}>
 				<button>
 					<Link href="/login">Login</Link>
@@ -12,7 +12,7 @@ function index() {
 					<Link href="/register">Register</Link>
 				</button>
 			</div>
-		</main>
+		</div>
 	);
 }
 
